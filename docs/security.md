@@ -76,7 +76,8 @@ names, source URLs or membership without explicit publication authorization.
 
 Verify immutable identities and digests before committing a generation. Bound
 download size, decompression, entry count and path length; reject traversal,
-absolute paths, symlink escapes and destination collisions. Stage beneath an
+absolute paths, symlink/hardlink escapes, device/FIFO/socket archive entries and
+destination collisions. Stage beneath an
 operator-owned directory and atomically commit only complete verified content.
 
 Never interpret manifests as Lisp or executable code. Disable evaluation in any
