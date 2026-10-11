@@ -17,10 +17,15 @@ access grants. This repository supplies actor packages and their catalog metadat
 
 ## Status
 
-Design scaffold only. No installer, runtime plugin, downloadable actor package,
+Design and Nix documentation scaffold only. No installer, runtime plugin, downloadable actor package,
 credential provider, or executable catalog schema is implemented here yet.
 The proposed contract must be authored and generated through canonical StarLang
 authority before consumers implement its wire representation.
+
+The [producer-owned flake](docs/producer-flake.md) exports the public docs and
+their existing checker, with a committed dependency lock and offline checks.
+It does not export an actor runtime. Consumers pin producer revisions and select
+named outputs; successful documentation checks do not establish actor readiness.
 
 ## Boundaries
 

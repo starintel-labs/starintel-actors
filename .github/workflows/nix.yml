@@ -1,0 +1,44 @@
+name: Producer flake verification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  nix:
+    name: Public documentation flake (x86_64-linux)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Verify candidate identity
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31
+      - name: Evaluate locked outputs
+        run: |
+          nix --version
+          nix flake show --no-update-lock-file
+          nix eval --no-update-lock-file --json .#packages.x86_64-linux --apply builtins.attrNames
+      - name: Build documentation and checker
+        run: nix build --no-update-lock-file --no-link .#docs .#docs-check
+      - name: Run documentation and mutation checks
+        run: nix flake check --no-update-lock-file --print-build-logs
+      - name: Run the packaged app
+        run: nix run --no-update-lock-file .#docs-check
+      - name: Prove installed CLI from an unrelated directory
+        run: |
+          proof_dir=$(mktemp -d)
+          nix profile install --no-update-lock-file --profile "$proof_dir/profile" .#docs-check
+          cd "$RUNNER_TEMP"
+          "$proof_dir/profile/bin/starintel-actors-check-docs"
+      - name: Ensure verification did not update the lock
+        run: git diff --exit-code -- flake.lock
