@@ -1,0 +1,263 @@
+{
+  "notice": "Design-only editorial inventory. NOT a StarLang-generated actor manifest, canonical StarIntel document, wire schema, runtime registration, Quasar catalog, package or permission grant.",
+  "authority": "starintel-labs/starintel-actors issue #4",
+  "reusable_expert": "starintel-labs/star-kb issue #29 (kb/public/starintel/symbolic_investigation.pl)",
+  "readiness": "design_only",
+  "actors": [
+    {
+      "id": "link-weaver",
+      "name": "LinkWeaver",
+      "priority": "P0",
+      "trigger": "On a trusted relation update",
+      "purpose": "Identify explicitly typed, evidence-linked two-hop ownership chains; do not infer legal control",
+      "reads": [
+        "kb_neighbors",
+        "kb_explain",
+        "kb_why_not"
+      ],
+      "local_expert": [
+        "ownership_path_candidates"
+      ],
+      "proposed_output": "Candidate relation path and source proof",
+      "dependency": "Star-KB #29",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "contradiction-hunter",
+      "name": "ContradictionHunter",
+      "priority": "P0",
+      "trigger": "On a trusted evidence/claim update",
+      "purpose": "Detect opposite assertions and conflicting evidence without deleting historical claims",
+      "reads": [
+        "kb_contradictions",
+        "kb_explain"
+      ],
+      "local_expert": [
+        "contradiction_cases"
+      ],
+      "proposed_output": "Contradiction review case",
+      "dependency": "Star-KB #29",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "hypothesis-engine",
+      "name": "HypothesisEngine",
+      "priority": "P0",
+      "trigger": "On an operator-scoped question",
+      "purpose": "Propose falsifiable explanations, missing evidence and counterexample checks, not truths",
+      "reads": [
+        "kb_packet",
+        "kb_why_not",
+        "kb_explain"
+      ],
+      "local_expert": [
+        "frontier_question"
+      ],
+      "proposed_output": "Candidate hypothesis with falsifiers",
+      "dependency": "Star-KB #6",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "rule-smith",
+      "name": "RuleSmith",
+      "priority": "P1",
+      "trigger": "On approved labeled examples",
+      "purpose": "Propose Horn/ILP rules and evaluate counterexamples before any promotion",
+      "reads": [
+        "kb_compare",
+        "kb_sources"
+      ],
+      "local_expert": [],
+      "proposed_output": "Proposed rule package",
+      "dependency": "Star-KB #6 and research PR #19",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "entity-fusion",
+      "name": "EntityFusion",
+      "priority": "P0",
+      "trigger": "On possible duplicate source entities",
+      "purpose": "Examine scoped identifiers and contradictory identity evidence; never force a merge",
+      "reads": [
+        "kb_compare",
+        "kb_sources",
+        "kb_contradictions"
+      ],
+      "local_expert": [
+        "evidence_coverage"
+      ],
+      "proposed_output": "Candidate identity match for review",
+      "dependency": "Identity policy review",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "frontier-scout",
+      "name": "FrontierScout",
+      "priority": "P0",
+      "trigger": "On an explicitly admitted investigation goal",
+      "purpose": "Select bounded missing-evidence questions, never authorize its own collection targets",
+      "reads": [
+        "kb_why_not",
+        "kb_referrers"
+      ],
+      "local_expert": [
+        "frontier_question"
+      ],
+      "proposed_output": "Reviewable next-question proposal",
+      "dependency": "Star-KB #27 goal engine",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "temporal-oracle",
+      "name": "TemporalOracle",
+      "priority": "P1",
+      "trigger": "On a timeline evaluation request",
+      "purpose": "Compare source-attributed intervals; avoid treating mutually exclusive times as certain",
+      "reads": [
+        "kb_timeline",
+        "kb_contradictions"
+      ],
+      "local_expert": [],
+      "proposed_output": "Temporal review finding",
+      "dependency": "Temporal semantics review",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "evidence-judge",
+      "name": "EvidenceJudge",
+      "priority": "P0",
+      "trigger": "On a candidate proof review",
+      "purpose": "Check linked provenance and contradictory source claims; linked does not mean verified",
+      "reads": [
+        "kb_sources",
+        "kb_explain"
+      ],
+      "local_expert": [
+        "evidence_coverage"
+      ],
+      "proposed_output": "Evidence review verdict",
+      "dependency": "Star-KB #29",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "ontology-miner",
+      "name": "OntologyMiner",
+      "priority": "P1",
+      "trigger": "On an authorized corpus-shape review",
+      "purpose": "Propose specific directional predicates from observed shapes, never auto-change ontology",
+      "reads": [
+        "kb_values",
+        "kb_compare"
+      ],
+      "local_expert": [],
+      "proposed_output": "Candidate ontology extension",
+      "dependency": "Star-KB #6",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "active-teacher",
+      "name": "ActiveTeacher",
+      "priority": "P1",
+      "trigger": "On a low-confidence learning candidate",
+      "purpose": "Request human labels selected for information gain without automatic promotion",
+      "reads": [
+        "kb_sources",
+        "kb_contradictions"
+      ],
+      "local_expert": [],
+      "proposed_output": "Human review question",
+      "dependency": "RuleSmith evaluation design",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "belief-revision",
+      "name": "BeliefRevision",
+      "priority": "P1",
+      "trigger": "On a contradictory or superseding claim",
+      "purpose": "Propose supersession annotations while keeping original evidence replayable",
+      "reads": [
+        "kb_contradictions",
+        "kb_timeline"
+      ],
+      "local_expert": [],
+      "proposed_output": "Candidate belief revision",
+      "dependency": "Canonical policy review",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "goal-director",
+      "name": "GoalDirector",
+      "priority": "P1",
+      "trigger": "On a trusted operator goal",
+      "purpose": "Recommend bounded actions by evidence gain and budget; no second scheduler or lease owner",
+      "reads": [
+        "kb_route_reasoning",
+        "kb_packet"
+      ],
+      "local_expert": [],
+      "proposed_output": "Admissible goal step proposal",
+      "dependency": "Star-KB #27 goal engine",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "knowledge-foundry",
+      "name": "KnowledgeFoundry",
+      "priority": "P0",
+      "trigger": "On an approved candidate knowledge proposal",
+      "purpose": "Prepare evidence-anchored draft records for existing StarIntel validation and write/readback",
+      "reads": [
+        "kb_explain",
+        "kb_sources"
+      ],
+      "local_expert": [],
+      "proposed_output": "Candidate document for canonical validation",
+      "dependency": "Star-KB #15 and server writer",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "proof-explainer",
+      "name": "ProofExplainer",
+      "priority": "P1",
+      "trigger": "On a human explanation request",
+      "purpose": "Produce reproducible reasoning chains with relation IDs, contradictory evidence and uncertainty",
+      "reads": [
+        "kb_explain",
+        "kb_packet"
+      ],
+      "local_expert": [],
+      "proposed_output": "Human-review proof packet",
+      "dependency": "Existing Star-KB named tools",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    },
+    {
+      "id": "rule-tournament",
+      "name": "RuleTournament",
+      "priority": "P2",
+      "trigger": "On an approved rule benchmark job",
+      "purpose": "Compare test fixtures and proof consistency within bounded cost, not live auto-selection",
+      "reads": [
+        "kb_route_reasoning",
+        "kb_sources"
+      ],
+      "local_expert": [],
+      "proposed_output": "Rule evaluation report",
+      "dependency": "Star-KB #6",
+      "activation": "not_implemented",
+      "candidate_policy": "never_auto_promote"
+    }
+  ]
+}
