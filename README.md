@@ -15,6 +15,10 @@ through that integration's trusted configuration. Authentication uses an
 operator-configured provider reference; catalogs never supply credentials or
 access grants. This repository supplies actor packages and their catalog metadata.
 
+The proposed 15-role [symbolic-investigation actor suite](actors/symbolic-investigation/README.md)
+keeps public actor designs here and shared Prolog expertise in Star-KB. This is
+not yet an executable actor package.
+
 ## Status
 
 Design and Nix documentation scaffold only. No installer, runtime plugin, downloadable actor package,

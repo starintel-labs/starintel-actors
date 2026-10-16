@@ -5,6 +5,10 @@ repository. It is intentionally empty of implementations in the documentation
 bootstrap. Catalog entries may also reference independently maintained actor
 repositories, such as `star-wpa`, without relocating their source.
 
+The [symbolic-investigation design suite](symbolic-investigation/README.md)
+records 15 proposed StarLang actors, not runnable packages or generated manifests.
+Its reusable Prolog expert belongs in Star-KB.
+
 Each future actor package needs its own reviewed identity, runtime entrypoint,
 generated manifest, dependency/compatibility declaration, configuration schema,
 license provenance and deterministic conformance tests. Exact package layout and
