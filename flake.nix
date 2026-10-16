@@ -15,7 +15,7 @@
         cp ${./README.md} "$root/README.md"
         cp ${./AGENTS.md} "$root/AGENTS.md"
         cp ${./actors/README.md} "$root/actors/README.md"
-        cp -r ${./actors/symbolic-investigation} "$root/actors/"
+        cp -r ${./actors/symbolic-investigation} "$root/actors/symbolic-investigation"
         cp -r ${./docs} "$root/docs"
         cp ${./scripts/check_docs.py} "$root/scripts/check_docs.py"
       '';
